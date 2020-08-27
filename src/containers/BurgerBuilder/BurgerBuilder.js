@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import AuxHoc from '../../hoc/AuxHoc'
 import Burger from '../../components/Burger/Burger'
 import BuildControls from '../../components/Burger/BuildControls/BuildControls'
+import Modal from '../../components/UI/Modal/Modal'
+import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary'
 
 const BURGER_PRICES = {
   salad: 0.5,
@@ -19,6 +21,7 @@ class BurgerBuilder extends Component {
     },
     totalPrice: 4,
     purchasable: false,
+    purchasing: false,
   }
   setPurchasable(ingredients){
     let sum = Object.keys(ingredients).map(igKey => {
@@ -26,6 +29,12 @@ class BurgerBuilder extends Component {
     }).reduce((acc, igQuantiry) => acc = acc + igQuantiry)
     this.setState({
       purchasable: sum > 0
+    })
+  }
+
+  purchasingHandler = () => {
+    this.setState({
+      purchasing: true
     })
   }
   addIngredientHander = (type) => {
@@ -61,6 +70,9 @@ class BurgerBuilder extends Component {
     }
     return (
       <AuxHoc>
+        <Modal show={this.state.purchasing}>
+            <OrderSummary ingredients={this.state.ingredients} />
+        </Modal>
         <Burger ingredients={this.state.ingredients} />
         <BuildControls
           addIngredient={this.addIngredientHander}
@@ -68,6 +80,7 @@ class BurgerBuilder extends Component {
           disableInfo={disableInfo}
           totalPrice={this.state.totalPrice}
           purchasable={this.state.purchasable}
+          purchasing={this.purchasingHandler}
         />
       </AuxHoc>
     )
