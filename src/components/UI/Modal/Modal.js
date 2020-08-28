@@ -1,9 +1,11 @@
 import React from 'react'
 import classes from './Modal.module.css'
 import AuxHoc from '../../../hoc/AuxHoc'
+import Backdrop from '../Backdrop/Backdrop'
 
 const Modal = (props) => (
   <AuxHoc>
+    <Backdrop show={props.show} cancelPurchasing={props.cancelPurchasing}/>
     <div 
       className={classes.Modal}
       style={{

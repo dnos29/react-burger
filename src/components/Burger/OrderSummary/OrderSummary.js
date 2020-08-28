@@ -1,4 +1,5 @@
 import React from 'react'
+import CustomButton from '../../UI/CustomButton/CustomButton'
 
 const OrderSummary = (props) => {
   let orderDetails = Object.keys(props.ingredients).map(igKey => {
@@ -9,7 +10,14 @@ const OrderSummary = (props) => {
     <ul>
       {orderDetails}
     </ul>
+    <p><strong>Total price: {props.totalPrice}</strong></p>
     <p>Continue to checkout?</p>
+    <CustomButton btnType='Danger' clicked={props.cancelPurchasing}>
+      CANCEL
+    </CustomButton>
+    <CustomButton btnType='Success' clicked={props.continueShopping}>
+      CONTINUE
+    </CustomButton>
   </div>)
 
 }
